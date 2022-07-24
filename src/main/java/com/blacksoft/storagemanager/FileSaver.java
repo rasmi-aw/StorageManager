@@ -48,12 +48,16 @@ public class FileSaver implements StorageConfig, FileType {
             //
             BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
             byte[] buffer = new byte[8192]; /* reading by 8kb (perfect buffer size) */
+            int totalBytes = inputStream.available();
             int numberOfReadBytes = 0;
             int size;
             while ((size = bufferedInputStream.read(buffer)) > 0) {
                 outputStream.write(buffer, 0, size);
                 numberOfReadBytes += size;
-                if (progressCallback != null) progressCallback.update(numberOfReadBytes);
+                int percentage = ((int) Math.round(((((double) numberOfReadBytes) / totalBytes) * 100)));
+                if (progressCallback != null) {
+                    progressCallback.progress(totalBytes, numberOfReadBytes, totalBytes > 0 ? percentage : 50);
+                }
             }
             outputStream.flush();
             outputStream.close();

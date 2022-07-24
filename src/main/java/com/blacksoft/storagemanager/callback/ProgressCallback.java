@@ -5,26 +5,7 @@ package com.blacksoft.storagemanager.callback;
  * <p>
  * shows progress
  */
-public abstract class ProgressCallback {
-    private int totalBytes;
-
-    /**
-     * Constructor
-     *
-     * @param totalBytes: total bytes to read.
-     */
-    public ProgressCallback(int totalBytes) {
-        this.totalBytes = totalBytes;
-    }
-
-    /**
-     * calculates progress
-     *
-     * @param numberOfReadBytes: the number of read bytes
-     */
-    public void update(int numberOfReadBytes) {
-        progress(totalBytes, numberOfReadBytes, totalBytes > 0 ? ((numberOfReadBytes / totalBytes) * 100) : 50);
-    }
+public interface ProgressCallback {
 
     /**
      * Shows progress of the file saving operation.
