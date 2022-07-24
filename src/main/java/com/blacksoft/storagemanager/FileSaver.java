@@ -41,7 +41,7 @@ public class FileSaver implements StorageConfig, FileType {
      * @param filePathAndName: complete file name with its path.
      * @Returns true if it's a successful operation else false
      */
-    public final boolean save(String filePathAndName, InputStream inputStream) {
+    public final boolean copy(String filePathAndName, InputStream inputStream) {
         try {
 
             FileOutputStream outputStream = new FileOutputStream(filePathAndName);
@@ -72,6 +72,36 @@ public class FileSaver implements StorageConfig, FileType {
     }
 
     /**
+     * Copying input File into a new File
+     *
+     * @param filePathAndName: complete file name with its path.
+     * @Returns true if it's a successful operation else false
+     */
+    public final boolean copy(String filePathAndName, File file) {
+        try {
+            return copy(filePathAndName, new FileInputStream(file));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    /**
+     * Copying input File into a new File
+     *
+     * @param : complete file name with its path.
+     * @Returns true if it's a successful operation else false
+     */
+    public final boolean copy(String inputFile, String outputFile) {
+        try {
+            return copy(outputFile, new FileInputStream(inputFile));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    /**
      * Saves input stream bytes into a named file.
      *
      * @param path:        directory path where you want to store your file.
@@ -88,7 +118,7 @@ public class FileSaver implements StorageConfig, FileType {
         dataDir.mkdirs();
 
         String fileCompleteName = dataDir.getPath() + File.separator + fileName;
-        if (save(fileCompleteName, inputStream)) return fileCompleteName;
+        if (copy(fileCompleteName, inputStream)) return fileCompleteName;
         else return null;
 
     }
@@ -113,7 +143,7 @@ public class FileSaver implements StorageConfig, FileType {
 
         try {
             String fileCompleteName = dataDir.getPath() + File.separator + fileName;
-            if (save(fileCompleteName, new FileInputStream(file)))
+            if (copy(fileCompleteName, new FileInputStream(file)))
                 return fileCompleteName;
 
         } catch (Exception e) {
