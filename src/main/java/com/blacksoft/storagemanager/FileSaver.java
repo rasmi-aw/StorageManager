@@ -16,15 +16,7 @@ import java.io.*;
  **/
 
 public class FileSaver implements StorageConfig, FileType {
-    private FileSaver instance;
     private ProgressCallback progressCallback;
-
-    /**
-     * Empty constructor, only if you need to show progress
-     */
-    private FileSaver() {
-        instance = this;
-    }
 
     /**
      * Create an instance of FileSaver
