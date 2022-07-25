@@ -2,7 +2,6 @@ package com.blacksoft.storagemanager;
 
 
 import com.blacksoft.storagemanager.callback.ProgressCallback;
-import com.blacksoft.storagemanager.utils.FileType;
 import com.blacksoft.storagemanager.utils.StorageUtils;
 
 import java.io.*;
@@ -40,10 +39,11 @@ public class FileSaver {
      * @param outputFile: complete file name with its path.
      * @Returns true if it's a successful operation else false
      */
-    public final boolean copy(String outputFile, InputStream inputStream) {
+    public final String save(String outputFile, InputStream inputStream) {
+        String parentDirsPath = null;
         try {
             //Creating parent dirs
-            String parentDirsPath = StorageUtils.guessFileType(outputFile).toString();
+            parentDirsPath = StorageUtils.guessFileType(outputFile).toString();
             File parentDirs = new File(parentDirsPath);
             parentDirs.mkdirs();
             //
@@ -71,11 +71,11 @@ public class FileSaver {
             bufferedInputStream = null;
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            return null;
         } finally {
             if (inputStream != null) inputStream = null;
         }
-        return true;
+        return parentDirsPath + outputFile;
     }
 
     /**
@@ -84,13 +84,13 @@ public class FileSaver {
      * @param outputFile: complete file name with its path.
      * @Returns true if it's a successful operation else false
      */
-    public final boolean copy(String outputFile, File file) {
+    public final String save(String outputFile, File file) {
         try {
-            return copy(outputFile, new FileInputStream(file));
+            return save(outputFile, new FileInputStream(file));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        return false;
+        return null;
     }
 
     /**
@@ -100,13 +100,13 @@ public class FileSaver {
      * @param outputFile: complete input file name with its path.
      * @Returns true if it's a successful operation else false
      */
-    public final boolean copy(String inputFile, String outputFile) {
+    public final String save(String inputFile, String outputFile) {
         try {
-            return copy(outputFile, new FileInputStream(inputFile));
+            return save(outputFile, new FileInputStream(inputFile));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        return false;
+        return null;
     }
 
     /**
@@ -124,10 +124,9 @@ public class FileSaver {
         //creating parent directories if not existing before
         File dataDir = new File(path);
         dataDir.mkdirs();
-
+        //
         String fileCompleteName = dataDir.getPath() + File.separator + fileName;
-        if (copy(fileCompleteName, inputStream)) return fileCompleteName;
-        else return null;
+        return save(fileCompleteName, inputStream);
 
     }
 
@@ -151,9 +150,7 @@ public class FileSaver {
 
         try {
             String fileCompleteName = dataDir.getPath() + File.separator + fileName;
-            if (copy(fileCompleteName, new FileInputStream(file)))
-                return fileCompleteName;
-
+            return save(fileCompleteName, new FileInputStream(file));
         } catch (Exception e) {
             e.printStackTrace();
         }

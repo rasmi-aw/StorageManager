@@ -17,8 +17,7 @@ public class Main {
         FileSaver
                 .get()
                 .setProgressCallBack((totalBytes, numberOfReadBytes, percentage) -> {
-                })
-                .copy(path, StorageUtils.randomNameWithExtension("rasmi", MimeType.TEXT_XML));
+                }).save(path, StorageUtils.randomNameWithExtension("rasmi", MimeType.IMAGE_PNG));
 
     }
 }
