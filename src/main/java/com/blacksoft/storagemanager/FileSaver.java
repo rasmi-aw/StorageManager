@@ -2,6 +2,7 @@ package com.blacksoft.storagemanager;
 
 
 import com.blacksoft.storagemanager.callback.ProgressCallback;
+import com.blacksoft.storagemanager.callback.FileSavedCall;
 import com.blacksoft.storagemanager.utils.StorageUtils;
 
 import java.io.*;
@@ -13,7 +14,7 @@ import java.io.*;
  * return the path of the stored file (better put in an other thread to not put the main thread
  * under pressure)
  **/
-public class FileSaver {
+public final class FileSaver {
     private ProgressCallback progressCallback;
 
     /**
@@ -37,7 +38,6 @@ public class FileSaver {
      * Copying inputStream bytes into a new File
      *
      * @param outputFile: complete file name with its path.
-     * @Returns true if it's a successful operation else false
      */
     public final String save(String outputFile, InputStream inputStream) {
         String parentDirsPath = null;
@@ -82,7 +82,6 @@ public class FileSaver {
      * Copying input File into a new File
      *
      * @param outputFile: complete file name with its path.
-     * @Returns true if it's a successful operation else false
      */
     public final String save(String outputFile, File file) {
         try {
@@ -98,7 +97,6 @@ public class FileSaver {
      *
      * @param inputFile:  complete input file name with its path.
      * @param outputFile: complete input file name with its path.
-     * @Returns true if it's a successful operation else false
      */
     public final String save(String inputFile, String outputFile) {
         try {
@@ -137,7 +135,6 @@ public class FileSaver {
      * @param path:     new path where you want to store your file
      * @param fileName: file name with extension
      */
-
     public final String save(String path, String fileName, File file) {
 
         if (file == null || !file.isFile()) return null;
@@ -156,5 +153,77 @@ public class FileSaver {
         }
         return null;
     }
+
+
+    /**
+     * Copying inputStream bytes into a new File
+     *
+     * @param outputFile:     complete file name with its path.
+     * @param fileSavedCall: a callback to return result
+     */
+    public void saveAsync(String outputFile, InputStream inputStream, FileSavedCall fileSavedCall) {
+        new Thread(() -> {
+            String result = save(outputFile, inputStream);
+            fileSavedCall.result(result != null, result);
+        }).start();
+    }
+
+    /**
+     * Copying input File into a new File
+     *
+     * @param outputFile:     complete file name with its path.
+     * @param fileSavedCall: a callback to return result
+     */
+    public void saveAsync(String outputFile, File file, FileSavedCall fileSavedCall) {
+        new Thread(() -> {
+            String result = save(outputFile, file);
+            fileSavedCall.result(result != null, result);
+        }).start();
+    }
+
+    /**
+     * Copying input File into a new File
+     *
+     * @param inputFile:      complete input file name with its path.
+     * @param outputFile:     complete input file name with its path.
+     * @param fileSavedCall: a callback to return result
+     */
+    public void saveAsync(String inputFile, String outputFile, FileSavedCall fileSavedCall) {
+        new Thread(() -> {
+            String result = save(inputFile, outputFile);
+            fileSavedCall.result(result != null, result);
+        }).start();
+    }
+
+    /**
+     * Saves input stream bytes into a named file.
+     *
+     * @param path:           directory path where you want to store your file.
+     * @param fileName:       file name with extension.
+     * @param inputStream:    the input stream u want to read from
+     * @param fileSavedCall: a callback to return result
+     */
+    public void saveAsync(String path, String fileName, InputStream inputStream, FileSavedCall fileSavedCall) {
+        new Thread(() -> {
+            String result = save(path, fileName, inputStream);
+            fileSavedCall.result(result != null, result);
+        }).start();
+    }
+
+    /**
+     * Saves file content bytes a new file
+     *
+     * @param file:           your file
+     * @param path:           new path where you want to store your file
+     * @param fileName:       file name with extension
+     * @param fileSavedCall: a callback to return result
+     */
+    public void saveAsync(String path, String fileName, File file, FileSavedCall fileSavedCall) {
+        new Thread(() -> {
+            String result = save(path, fileName, file);
+            fileSavedCall.result(result != null, result);
+        }).start();
+    }
+
 
 }
