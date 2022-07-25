@@ -18,7 +18,7 @@ public class Main {
                 .get()
                 .setProgressCallBack((totalBytes, numberOfReadBytes, percentage) -> {
                 })
-                .copy(path, "/data/" + StorageUtils.randomNameWithExtension("rasmi", MimeType.IMAGE_BITMAP));
+                .copy(path, StorageUtils.randomNameWithExtension("rasmi", MimeType.TEXT_XML));
 
     }
 }

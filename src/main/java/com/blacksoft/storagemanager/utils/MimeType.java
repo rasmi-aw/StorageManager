@@ -66,7 +66,8 @@ public enum MimeType {
     VIDEO_WMV("video/x-ms-wmv"),
     VIDEO_MPEG("video/mpeg"),
     VIDEO_OGV("video/ogg"),
-    VIDEO_WEBM("video/webm");
+    VIDEO_WEBM("video/webm"),
+    PDF("application/pdf");
 
     /**
      * Constructor and value

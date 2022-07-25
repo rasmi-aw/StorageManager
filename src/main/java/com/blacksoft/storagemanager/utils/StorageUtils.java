@@ -294,11 +294,9 @@ public final class StorageUtils {
             else if (lcMime.contains(MimeType.TEXT_XML.toString())) extension = ".xml";
             else if (lcMime.contains(MimeType.TEXT_PLAIN.toString())) extension = ".txt";
             else if (lcMime.contains(MimeType.APPLICATION_JSON.toString())) extension = ".json";
-            else if (lcMime.contains(MimeType.APPLICATION_OCTET_STREAM.toString()))
-                extension = ".bin";
-            else if (lcMime.contains(MimeType.APPLICATION_XHTML_XML.toString()))
-                extension = ".xhtml";
-
+            else if (lcMime.contains(MimeType.APPLICATION_OCTET_STREAM.toString())) extension = ".bin";
+            else if (lcMime.contains(MimeType.APPLICATION_XHTML_XML.toString())) extension = ".xhtml";
+            else if (lcMime.contains(MimeType.PDF.toString())) extension = ".pdf";
             else extension = ".bin";
 
             return extension;

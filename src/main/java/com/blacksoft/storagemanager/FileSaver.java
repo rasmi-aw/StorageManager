@@ -43,10 +43,11 @@ public class FileSaver {
     public final boolean copy(String outputFile, InputStream inputStream) {
         try {
             //Creating parent dirs
-            File parentDirs = new File(StorageUtils.guessFileType(outputFile).toString());
+            String parentDirsPath = StorageUtils.guessFileType(outputFile).toString();
+            File parentDirs = new File(parentDirsPath);
             parentDirs.mkdirs();
             //
-            FileOutputStream outputStream = new FileOutputStream(outputFile);
+            FileOutputStream outputStream = new FileOutputStream(parentDirsPath + outputFile);
             //
             BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
             byte[] buffer = new byte[8192]; /* reading by 8kb (perfect buffer size) */
