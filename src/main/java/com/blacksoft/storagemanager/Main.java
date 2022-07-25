@@ -16,9 +16,7 @@ public class Main {
         File file = new File(path);
         FileSaver
                 .get()
-                .setProgressCallBack((totalBytes, numberOfReadBytes, percentage) -> {
-                    System.out.println(System.currentTimeMillis()+"--"+percentage);
-                })
+                .setProgressCallBack((totalBytes, numberOfReadBytes, percentage) -> {})
                 .copy(path, StorageUtils.randomNameWithExtension("rasmi", MimeType.IMAGE_BITMAP));
 
     }

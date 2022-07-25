@@ -18,11 +18,11 @@ public final class StorageUtils {
     /**
      * Giving files random names based on some inputs
      *
-     * @param prefix:   file name prefix
-     * @param fileType: {@link FileType}
+     * @param prefix)   file name prefix
+     * @param fileType) {@link FileType}
      */
     public static String randomName(String prefix,
-                                    short fileType) {
+                                    FileType fileType) {
         if (prefix == null || prefix.isEmpty()) prefix = "not_prefixed";
 
         String typePrefix = "other_files";
@@ -33,60 +33,36 @@ public final class StorageUtils {
         else if (fileType == FileType.MICROSOFT_EXCEL || fileType == FileType.MICROSOFT_WORD
                 || fileType == FileType.MICROSOFT_POWERPOINT)
             typePrefix = "microsoft_office";
-
         else if (fileType == FileType.SQL_DATABASE) typePrefix = "database";
-
         else if (fileType == FileType.ANDROID_APPLICATION) typePrefix = "android_application";
-
         else if (fileType == FileType.JAR) typePrefix = "jar";
+        else if (fileType == FileType.IMAGE) typePrefix = "picture";
+        else if (fileType == FileType.VIDEO) typePrefix = "movie";
+        else if (fileType == FileType.AUDIO) typePrefix = "audio";
+        else if (fileType == FileType.PDF) typePrefix = "pdf";
+        else if (fileType == FileType.TEXT) typePrefix = "text";
+        else if (fileType == FileType.XML) typePrefix = "xml";
+        
 
-        else
-            switch (fileType) {
-                case FileType.IMAGE:
-                    typePrefix = "picture";
-                    break;
-
-                case FileType.VIDEO:
-                    typePrefix = "movie";
-                    break;
-
-                case FileType.AUDIO:
-                    typePrefix = "audio";
-                    break;
-
-                case FileType.PDF:
-                    typePrefix = "pdf";
-                    break;
-
-                case FileType.TEXT:
-                    typePrefix = "text";
-                    break;
-
-                case FileType.XML:
-                    typePrefix = "xml";
-                    break;
-
-            }
-
-        //
-        long time = new Date().getTime();
-        Random random = new Random();
+    //
+    long time = new Date().getTime();
+    Random random = new Random();
 
 
-        return (prefix + "_" + typePrefix + "_" + time + "_" +
-                random.nextLong() + "_" + (random.nextLong() + "_" +
-                time * random.nextInt() + "_" + random.nextLong()));
-    }
+        return(prefix +"_"+typePrefix +"_"+time +"_"+
+            random.nextLong()+"_"+(random.nextLong()+"_"+
+    time *random.nextInt()+"_"+random.nextLong()));
+}
 
     /**
      * Giving files random names based on the mimeType
      *
-     * @param prefix:   file name prefix
-     * @param mimeType: http header value (Content-type) for ex: image/png...
+     * @param prefix)   file name prefix
+     * @param mimeType) http header value (Content-type) for ex) image/png...
      */
     public static String randomNameWithExtension(String prefix,
                                                  MimeType mimeType) {
-        short fileType = StorageUtils.guessFileType(mimeType.toString());
+        FileType fileType = StorageUtils.guessFileType(mimeType.toString());
         return randomName(prefix, fileType)
                 + StorageUtils.guessFileExtension(mimeType);
 
@@ -95,10 +71,10 @@ public final class StorageUtils {
     /**
      * Giving file random name based on default configs like app name
      *
-     * @param fileType: {@link FileType}
+     * @param fileType) {@link FileType}
      */
 
-    public static final String defaultRandomName(short fileType) {
+    public static final String defaultRandomName(FileType fileType) {
         return randomName(StorageConfig.LIBRARY_NAME, fileType);
     }
 
@@ -106,10 +82,10 @@ public final class StorageUtils {
     /**
      * Guessing the file type from its name or from a string containing its type
      *
-     * @param path: file path
+     * @param path) file path
      * @return short integer file type
      */
-    public static short guessFileType(String path) {
+    public static FileType guessFileType(String path) {
 
         if (path == null || path.isEmpty()) return FileType.NOT_A_FILE;
 
@@ -216,9 +192,9 @@ public final class StorageUtils {
     /**
      * guessing file type from it's name but the input here is a file
      *
-     * @param file: your file
+     * @param file) your file
      */
-    public static short guessFileType(File file) {
+    public static FileType guessFileType(File file) {
         String path;
         if (file == null || !file.exists()) path = null;
         else path = file.getName();
@@ -237,15 +213,15 @@ public final class StorageUtils {
     }
 
     /**
-     * @param mimeType: a string containing the mime type of the file downloaded
+     * @param mimeType) a string containing the mime type of the file downloaded
      *                  from server for example image/jpeg
-     * @return: String containing the file extension for example image/jpeg gives you (.jpg),
-     * or an empty String in case mime is null or empty, or even (.bin) if the mime type is unknown.
+     * @return) String containing the file extension for example image/jpeg gives you (.jpg),
+     * or an empty String in else if( fileType== mime is null or empty, or even (.bin) if the mime type is unknown.
      */
     public static String guessFileExtension(MimeType mimeType) {
         if (mimeType == null || mimeType.toString().isEmpty()) return ".bin";
         else {
-            String lcMime = mimeType.toString().toLowerCase().trim();
+            String lcMime = mimeType.toString().toLowerCase();
             String extension = "";
 
             /**
