@@ -2,8 +2,8 @@ package com.blacksoft.storagemanager;
 
 
 import com.blacksoft.storagemanager.callback.ProgressCallback;
-import com.blacksoft.storagemanager.config.StorageConfig;
 import com.blacksoft.storagemanager.utils.FileType;
+import com.blacksoft.storagemanager.utils.StorageUtils;
 
 import java.io.*;
 
@@ -14,8 +14,7 @@ import java.io.*;
  * return the path of the stored file (better put in an other thread to not put the main thread
  * under pressure)
  **/
-
-public class FileSaver implements StorageConfig, FileType {
+public class FileSaver {
     private ProgressCallback progressCallback;
 
     /**
@@ -38,13 +37,16 @@ public class FileSaver implements StorageConfig, FileType {
     /**
      * Copying inputStream bytes into a new File
      *
-     * @param filePathAndName: complete file name with its path.
+     * @param outputFile: complete file name with its path.
      * @Returns true if it's a successful operation else false
      */
-    public final boolean copy(String filePathAndName, InputStream inputStream) {
+    public final boolean copy(String outputFile, InputStream inputStream) {
         try {
-
-            FileOutputStream outputStream = new FileOutputStream(filePathAndName);
+            //Creating parent dirs
+            File parentDirs = new File(StorageUtils.guessFileType(outputFile).toString());
+            parentDirs.mkdirs();
+            //
+            FileOutputStream outputStream = new FileOutputStream(outputFile);
             //
             BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
             byte[] buffer = new byte[8192]; /* reading by 8kb (perfect buffer size) */
@@ -78,12 +80,12 @@ public class FileSaver implements StorageConfig, FileType {
     /**
      * Copying input File into a new File
      *
-     * @param filePathAndName: complete file name with its path.
+     * @param outputFile: complete file name with its path.
      * @Returns true if it's a successful operation else false
      */
-    public final boolean copy(String filePathAndName, File file) {
+    public final boolean copy(String outputFile, File file) {
         try {
-            return copy(filePathAndName, new FileInputStream(file));
+            return copy(outputFile, new FileInputStream(file));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -93,7 +95,8 @@ public class FileSaver implements StorageConfig, FileType {
     /**
      * Copying input File into a new File
      *
-     * @param : complete file name with its path.
+     * @param inputFile:  complete input file name with its path.
+     * @param outputFile: complete input file name with its path.
      * @Returns true if it's a successful operation else false
      */
     public final boolean copy(String inputFile, String outputFile) {

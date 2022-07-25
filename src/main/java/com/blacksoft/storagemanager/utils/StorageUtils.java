@@ -1,8 +1,5 @@
 package com.blacksoft.storagemanager.utils;
 
-
-import com.blacksoft.storagemanager.config.StorageConfig;
-
 import java.io.File;
 import java.util.Date;
 import java.util.Random;
@@ -14,6 +11,8 @@ import java.util.Random;
  */
 
 public final class StorageUtils {
+    public static String STORAGE_MAIN_FOLDER = "blacksoft/storagemanager" + File.separator;
+    public static String OTHER_FILES_FOLDER = STORAGE_MAIN_FOLDER + "other" + File.separator;
 
     /**
      * Giving files random names based on some inputs
@@ -42,17 +41,17 @@ public final class StorageUtils {
         else if (fileType == FileType.PDF) typePrefix = "pdf";
         else if (fileType == FileType.TEXT) typePrefix = "text";
         else if (fileType == FileType.XML) typePrefix = "xml";
-        
-
-    //
-    long time = new Date().getTime();
-    Random random = new Random();
 
 
-        return(prefix +"_"+typePrefix +"_"+time +"_"+
-            random.nextLong()+"_"+(random.nextLong()+"_"+
-    time *random.nextInt()+"_"+random.nextLong()));
-}
+        //
+        long time = new Date().getTime();
+        Random random = new Random();
+
+
+        return (prefix + "_" + typePrefix + "_" + time + "_" +
+                random.nextLong() + "_" + (random.nextLong() + "_" +
+                time * random.nextInt() + "_" + random.nextLong()));
+    }
 
     /**
      * Giving files random names based on the mimeType
@@ -75,7 +74,7 @@ public final class StorageUtils {
      */
 
     public static final String defaultRandomName(FileType fileType) {
-        return randomName(StorageConfig.LIBRARY_NAME, fileType);
+        return randomName("", fileType);
     }
 
 
@@ -204,7 +203,7 @@ public final class StorageUtils {
     /**
      * getting file extension from its name or its path
      */
-    public static final String getFileExtension(String fileName) {
+    public static String getFileExtension(String fileName) {
         if (fileName == null || fileName.isEmpty()
                 || !fileName.contains(".")) return "";
 
