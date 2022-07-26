@@ -1,4 +1,4 @@
-package com.blacksoft.storagemanager.callback;
+package com.beastwall.storagemanager.callback;
 
 /**
  * @author AbdelWadoud Rasmi

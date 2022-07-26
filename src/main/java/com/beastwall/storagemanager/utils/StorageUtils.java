@@ -1,4 +1,4 @@
-package com.blacksoft.storagemanager.utils;
+package com.beastwall.storagemanager.utils;
 
 import java.io.File;
 import java.util.Date;

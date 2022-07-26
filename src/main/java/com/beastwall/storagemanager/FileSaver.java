@@ -1,9 +1,9 @@
-package com.blacksoft.storagemanager;
+package com.beastwall.storagemanager;
 
 
-import com.blacksoft.storagemanager.callback.ProgressCallback;
-import com.blacksoft.storagemanager.callback.FileSavedCall;
-import com.blacksoft.storagemanager.utils.StorageUtils;
+import com.beastwall.storagemanager.callback.ProgressCallback;
+import com.beastwall.storagemanager.callback.FileSavedCall;
+import com.beastwall.storagemanager.utils.StorageUtils;
 
 import java.io.*;
 

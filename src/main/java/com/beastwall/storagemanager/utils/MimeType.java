@@ -1,4 +1,4 @@
-package com.blacksoft.storagemanager.utils;
+package com.beastwall.storagemanager.utils;
 
 /**
  * Possible MimeTypes
