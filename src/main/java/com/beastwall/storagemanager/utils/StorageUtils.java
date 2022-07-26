@@ -11,7 +11,7 @@ import java.util.Random;
  */
 
 public final class StorageUtils {
-    public static String STORAGE_MAIN_FOLDER = "blacksoft/storagemanager" + File.separator;
+    public static String STORAGE_MAIN_FOLDER = "beastwall/storagemanager" + File.separator;
     public static String OTHER_FILES_FOLDER = STORAGE_MAIN_FOLDER + "other" + File.separator;
 
     /**
