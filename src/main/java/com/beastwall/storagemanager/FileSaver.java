@@ -214,7 +214,7 @@ public final class FileSaver {
      * Saves file content bytes a new file
      *
      * @param file:           your file
-     * @param path:           new path where you want to store your file
+     * @param path:           new path where you wa++nt to store your file
      * @param fileName:       file name with extension
      * @param fileSavedCall: a callback to return result
      */
