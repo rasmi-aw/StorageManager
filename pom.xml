@@ -6,7 +6,7 @@
 
     <groupId>com.beastwall</groupId>
     <artifactId>storage-manager</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <name>${project.groupId}:${project.artifactId}</name>
     <description>A java library to store files in local storage,
         it supports asynchronous file saving using a different thread
@@ -25,7 +25,7 @@
     <scm>
         <connection>scm:git:git://github.com/rasmi-aw/StorageManager.git</connection>
         <developerConnection>scm:git:ssh://github.com:rasmi-aw/StorageManager.git</developerConnection>
-        <url>http://github.com/rasmi-aw/tree/master</url>
+        <url>https://github.com/rasmi-aw/StorageManager</url>
     </scm>
 
     <!--Developpers-->
