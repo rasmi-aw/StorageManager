@@ -14,7 +14,7 @@ import java.io.*;
  * return the path of the stored file (better put in an other thread to not put the main thread
  * under pressure)
  **/
-public final class FileSaver {
+public class FileSaver {
     private ProgressCallback progressCallback;
 
     /**
@@ -29,7 +29,7 @@ public final class FileSaver {
      *
      * @param progressCallback: a Callback object to return the current progress
      */
-    public final FileSaver setProgressCallBack(ProgressCallback progressCallback) {
+    public FileSaver setProgressCallBack(ProgressCallback progressCallback) {
         this.progressCallback = progressCallback;
         return this;
     }
@@ -39,7 +39,7 @@ public final class FileSaver {
      *
      * @param outputFile: complete file name with its path.
      */
-    public final String save(InputStream inputStream, String outputFile) {
+    public String save(InputStream inputStream, String outputFile) {
         String parentDirsPath = null;
         try {
             //Creating parent dirs
@@ -83,7 +83,7 @@ public final class FileSaver {
      *
      * @param outputFile: complete file name with its path.
      */
-    public final String save(File file, String outputFile) {
+    public String save(File file, String outputFile) {
         try {
             return save(new FileInputStream(file), outputFile);
         } catch (Exception e) {
@@ -98,7 +98,7 @@ public final class FileSaver {
      * @param inputFile:  complete input file name with its path.
      * @param outputFile: complete input file name with its path.
      */
-    public final String save(String inputFile, String outputFile) {
+    public String save(String inputFile, String outputFile) {
         try {
             return save(new FileInputStream(inputFile), outputFile);
         } catch (Exception e) {
@@ -115,7 +115,7 @@ public final class FileSaver {
      * @param inputStream: the input stream u want to read from
      */
 
-    public final String save(InputStream inputStream, String path, String fileName) {
+    public String save(InputStream inputStream, String path, String fileName) {
 
         if (inputStream == null) return null;
 
@@ -135,7 +135,7 @@ public final class FileSaver {
      * @param path:     new path where you want to store your file
      * @param fileName: file name with extension
      */
-    public final String save(File file, String path, String fileName) {
+    public String save(File file, String path, String fileName) {
 
         if (file == null || !file.isFile()) return null;
 
