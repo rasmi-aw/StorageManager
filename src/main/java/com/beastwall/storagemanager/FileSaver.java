@@ -105,7 +105,7 @@ public class FileSaver {
     }
 
     /**
-     * Copy inputStream bytes into a new File
+     * Copy file into a new File
      *
      * @param file:           the input file you want to copy.
      * @param outputFileName: file name example: "file.pdf".

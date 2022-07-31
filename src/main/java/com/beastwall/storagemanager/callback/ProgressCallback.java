@@ -15,5 +15,5 @@ public interface ProgressCallback {
      * @param totalBytes:        total bytes to read.
      * @param percentage:        percentage of read bytes compared to the total number of bytes.
      */
-    public abstract void progress(long totalBytes, long numberOfReadBytes, int percentage);
+     void progress(long totalBytes, long numberOfReadBytes, int percentage);
 }
