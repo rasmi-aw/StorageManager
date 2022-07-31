@@ -53,12 +53,17 @@ public class FileSaver {
      * @return file path
      */
     public String save(InputStream inputStream, String outputFile) {
-        String parentDirsPath;
+        String parentDirsPath="";
         try {
-            //Creating parent dirs
-            parentDirsPath = StorageUtils.guessFileType(outputFile).toString();
-            File parentDirs = new File(parentDirsPath);
-            parentDirs.mkdirs();
+            // checking if the path doesn't contain a parent dir
+            String check = outputFile.replaceFirst("/", "").replaceFirst("\\ ".trim(), "");
+            if (!check.contains("/") && !check.contains("\\")) {
+                //Creating parent dirs
+                parentDirsPath = StorageUtils.guessFileType(outputFile).toString();
+                File parentDirs = new File(parentDirsPath);
+                parentDirs.mkdirs();
+            }
+
             //
             FileOutputStream outputStream = new FileOutputStream(parentDirsPath + outputFile);
             //
@@ -101,7 +106,7 @@ public class FileSaver {
     /**
      * Copy inputStream bytes into a new File
      *
-     * @param file: the input file you want to copy.
+     * @param file:           the input file you want to copy.
      * @param outputFileName: file name example: "file.pdf".
      * @return file path
      */
