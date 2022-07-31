@@ -14,12 +14,12 @@
     </properties>
 
     <!--Using StorageManager library version 1.0.1-->
-    <dependencies>
-        <dependency>
-            <groupId>com.beastwall</groupId>
-            <artifactId>storage-manager</artifactId>
-            <version>1.0.1</version>
-        </dependency>
-    </dependencies>
+<!--    <dependencies>-->
+<!--        <dependency>-->
+<!--            <groupId>com.beastwall</groupId>-->
+<!--            <artifactId>storage-manager</artifactId>-->
+<!--            <version>1.0.1</version>-->
+<!--        </dependency>-->
+<!--    </dependencies>-->
 
 </project>

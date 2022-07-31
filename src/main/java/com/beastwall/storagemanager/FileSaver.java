@@ -11,12 +11,12 @@ import java.io.*;
  * @author AbdelWadoud Rasmi
  * <p>
  * The point of this class is to store files in a structured way and
- * return the path of the stored file (better put in an other thread to not put the main thread
+ * return the path of the stored file (better use Async methods to not put the main thread
  * under pressure)
  **/
 public class FileSaver {
     private ProgressCallback progressCallback;
-    private int totalBytes = -1;
+    private long totalBytes = -1;
 
     /**
      * Create an instance of FileSaver
@@ -28,7 +28,7 @@ public class FileSaver {
     /**
      * Set a progressCallback
      *
-     * @param progressCallback: a Callback object to return the current progress
+     * @param progressCallback: a Callback object to return the current progress.
      */
     public FileSaver setProgressCallBack(ProgressCallback progressCallback) {
         this.progressCallback = progressCallback;
@@ -36,9 +36,21 @@ public class FileSaver {
     }
 
     /**
-     * Copying inputStream bytes into a new File
+     * Set the input real size, in case not specified, the inputstream available()
+     * method will be used to put a size to calculate the progress
      *
-     * @param outputFile: complete file name with its path.
+     * @param totalBytes: data length in bytes.
+     */
+    public FileSaver setInputLength(long totalBytes) {
+        this.totalBytes = totalBytes;
+        return this;
+    }
+
+    /**
+     * Copy inputStream bytes into a new File
+     *
+     * @param outputFile: file name example: "file.pdf".
+     * @return file path
      */
     public String save(InputStream inputStream, String outputFile) {
         String parentDirsPath;
@@ -58,13 +70,13 @@ public class FileSaver {
             //
             int numberOfReadBytes = 0;
             int size;
-            int percentage = 0;
+            double percentage = 0;
             while ((size = bufferedInputStream.read(buffer)) > 0) {
                 outputStream.write(buffer, 0, size);
                 numberOfReadBytes += size;
                 //
                 if (progressCallback != null) {
-                    int newPercentage = ((int) Math.round(((((double) numberOfReadBytes) / totalBytes) * 100)));
+                    double newPercentage = ((((double) numberOfReadBytes) / totalBytes) * 100);
                     if (newPercentage > percentage)
                         progressCallback.progress(totalBytes, numberOfReadBytes, totalBytes > 0 ? percentage : 50);
                     percentage = newPercentage;
@@ -87,13 +99,15 @@ public class FileSaver {
     }
 
     /**
-     * Copying input File into a new File
+     * Copy inputStream bytes into a new File
      *
-     * @param outputFile: complete file name with its path.
+     * @param file: the input file you want to copy.
+     * @param outputFileName: file name example: "file.pdf".
+     * @return file path
      */
-    public String save(File file, String outputFile) {
+    public String save(File file, String outputFileName) {
         try {
-            return save(new FileInputStream(file), outputFile);
+            return save(new FileInputStream(file), outputFileName);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -103,12 +117,12 @@ public class FileSaver {
     /**
      * Copying input File into a new File
      *
-     * @param inputFile:  complete input file name with its path.
-     * @param outputFile: complete input file name with its path.
+     * @param inputFilePath:  complete input file name with its path.
+     * @param outputFileName: complete input file name with its path.
      */
-    public String save(String inputFile, String outputFile) {
+    public String save(String inputFilePath, String outputFileName) {
         try {
-            return save(new FileInputStream(inputFile), outputFile);
+            return save(new FileInputStream(inputFilePath), outputFileName);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -289,7 +303,7 @@ public class FileSaver {
     /**
      * Saves file content bytes a new file
      *
-     * @param bytes:          your file
+     * @param bytes:         your file
      * @param path:          new path where you wa++nt to store your file
      * @param fileName:      file name with extension
      * @param fileSavedCall: a callback to return result
