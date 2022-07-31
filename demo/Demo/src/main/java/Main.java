@@ -1,6 +1,8 @@
 import com.beastwall.storagemanager.FileSaver;
 import com.beastwall.storagemanager.callback.FileSavedCall;
 import com.beastwall.storagemanager.callback.ProgressCallback;
+import com.beastwall.storagemanager.utils.MimeType;
+import com.beastwall.storagemanager.utils.StorageUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -80,8 +82,14 @@ public class Main {
         File textFile = new File(txtUrl);
         String text2 =
                 saver.setInputLength(textFile.length())
-                .save(textFile, "StorageManager/demo/Demo/newdir", "file2.txt");
+                        .save(textFile, "StorageManager/demo/Demo/newdir", "file2.txt");
 
+
+        /**
+         * Random file name with estension using mimeType
+         */
+        String fileName = StorageUtils.randomNameWithExtension("any-prefix", MimeType.APPLICATION_JSON);
+        System.out.println(fileName);
     }
 
 

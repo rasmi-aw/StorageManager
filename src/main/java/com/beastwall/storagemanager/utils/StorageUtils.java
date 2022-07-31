@@ -22,18 +22,18 @@ public final class StorageUtils {
      */
     public static String randomName(String prefix,
                                     FileType fileType) {
-        if (prefix == null || prefix.isEmpty()) prefix = "not_prefixed";
+        if (prefix == null) prefix = "";
 
-        String typePrefix = "other_files";
+        String typePrefix = "others";
 
         if (fileType == FileType.HTML || fileType == FileType.CSS)
             typePrefix = "web_file";
 
         else if (fileType == FileType.MICROSOFT_EXCEL || fileType == FileType.MICROSOFT_WORD
                 || fileType == FileType.MICROSOFT_POWERPOINT)
-            typePrefix = "microsoft_office";
+            typePrefix = "office";
         else if (fileType == FileType.SQL_DATABASE) typePrefix = "database";
-        else if (fileType == FileType.ANDROID_APPLICATION) typePrefix = "android_application";
+        else if (fileType == FileType.ANDROID_APPLICATION) typePrefix = "android_app";
         else if (fileType == FileType.JAR) typePrefix = "jar";
         else if (fileType == FileType.IMAGE) typePrefix = "picture";
         else if (fileType == FileType.VIDEO) typePrefix = "movie";
@@ -50,7 +50,7 @@ public final class StorageUtils {
 
         return (prefix + "_" + typePrefix + "_" + time + "_" +
                 random.nextLong() + "_" + (random.nextLong() + "_" +
-                time * random.nextInt() + "_" + random.nextLong()));
+                time * random.nextInt()));
     }
 
     /**

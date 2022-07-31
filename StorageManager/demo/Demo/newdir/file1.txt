@@ -1,0 +1,16 @@
+﻿StorageManager
+Version 1.0.1
+─  
+Abdel Wadoud Rasmi
+Beastwall
+abdelouadoudrasmi@gmail.com
+Github
+Linkedin
+
+
+Code
+https://github.com/rasmi-aw/StorageManager
+Demo
+https://github.com/rasmi-aw/StorageManager/tree/master/demo/Demo
+Documentation
+https://github.com/rasmi-aw/StorageManager/wiki/StorageManager
