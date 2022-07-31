@@ -90,6 +90,16 @@ public class Main {
          */
         String fileName = StorageUtils.randomNameWithExtension("any-prefix", MimeType.APPLICATION_JSON);
         System.out.println(fileName);
+
+        /**
+         * short expression
+         */
+        textFile = new File(txtUrl);
+        FileSaver
+                .get()
+                .setProgressCallBack((totalBytes, numberOfReadBytes, percentage) -> {})
+                .setInputLength(textFile.length())
+                .save(textFile, "StorageManager/demo/Demo/newdir", "file2.txt");
     }
 
 
