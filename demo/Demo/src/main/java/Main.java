@@ -69,18 +69,18 @@ public class Main {
          */
         String path = saver.setProgressCallBack(new ProgressCallback() {
             @Override
-            public void progress(long totalBytes, long numberOfReadBytes, double percentage) {
+            public void progress(long totalBytes, long numberOfReadBytes, int percentage) {
                 System.out.println(percentage);
             }
-        }).save(new File(txtUrl), "StorageManager/demo/Demo/newdir", "file.txt");
+        }).save(new File(txtUrl), "StorageManager/demo/Demo/newdir", "file1.txt");
 
         /**
-         *
+         * changing default file length
          */
         File textFile = new File(txtUrl);
         String text2 =
                 saver.setInputLength(textFile.length())
-                .save(textFile, "StorageManager/demo/Demo/newdir", "file.txt");
+                .save(textFile, "StorageManager/demo/Demo/newdir", "file2.txt");
 
     }
 

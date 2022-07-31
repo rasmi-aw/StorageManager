@@ -53,11 +53,12 @@ public class FileSaver {
      * @return file path
      */
     public String save(InputStream inputStream, String outputFile) {
-        String parentDirsPath="";
+        String parentDirsPath = "";
         try {
             // checking if the path doesn't contain a parent dir
-            String check = outputFile.replaceFirst("/", "").replaceFirst("\\ ".trim(), "");
-            if (!check.contains("/") && !check.contains("\\")) {
+            String check = outputFile.replace("/", "#*#*#").replace(String.valueOf('\\'), "#*#*#");
+            check = check.replaceFirst("#*#*#", "/");
+            if (!check.contains("/")) {
                 //Creating parent dirs
                 parentDirsPath = StorageUtils.guessFileType(outputFile).toString();
                 File parentDirs = new File(parentDirsPath);
@@ -71,7 +72,7 @@ public class FileSaver {
             byte[] buffer = new byte[8192]; /* reading by 8kb (perfect buffer size) */
             if (totalBytes == -1)
                 totalBytes = inputStream.available();
-            if (totalBytes == 0) totalBytes = Integer.MAX_VALUE;
+            if (totalBytes == 0) totalBytes = Long.MAX_VALUE;
             //
             int numberOfReadBytes = 0;
             int size;
@@ -81,9 +82,9 @@ public class FileSaver {
                 numberOfReadBytes += size;
                 //
                 if (progressCallback != null) {
-                    double newPercentage = ((((double) numberOfReadBytes) / totalBytes) * 100);
+                    double newPercentage = (((double) numberOfReadBytes) / totalBytes) * 100;
                     if (newPercentage > percentage)
-                        progressCallback.progress(totalBytes, numberOfReadBytes, totalBytes > 0 ? percentage : 50);
+                        progressCallback.progress(totalBytes, numberOfReadBytes, totalBytes > 0 ? ((int) Math.round(newPercentage)) : 50);
                     percentage = newPercentage;
                 }
             }
