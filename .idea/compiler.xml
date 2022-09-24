@@ -8,6 +8,8 @@
         <outputRelativeToContentRoot value="true" />
         <module name="StorageManager" />
         <module name="Demo" />
+        <module name="storage-manager" />
+        <module name="storage-manager-demo" />
       </profile>
     </annotationProcessing>
   </component>
