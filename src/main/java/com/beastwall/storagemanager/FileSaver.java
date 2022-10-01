@@ -69,7 +69,7 @@ public class FileSaver {
             FileOutputStream outputStream = new FileOutputStream(parentDirsPath + outputFile);
             //
             BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
-            byte[] buffer = new byte[(1024 * 1024)]; /* reading by 8kb (perfect buffer size) */
+            byte[] buffer = new byte[(1024 * 1024)]; /* reading by 1mb (perfect buffer size) */
             if (totalBytes == -1)
                 totalBytes = inputStream.available();
             if (totalBytes == 0) totalBytes = Long.MAX_VALUE;
