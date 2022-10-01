@@ -6,7 +6,7 @@
 
     <groupId>com.beastwall</groupId>
     <artifactId>storage-manager</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <name>${project.groupId}:${project.artifactId}</name>
     <description>A java library to store files in local storage,
         it supports asynchronous file saving using a different thread
